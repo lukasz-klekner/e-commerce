@@ -181,6 +181,13 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
+"@types/react-dom@17.0.2":
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.2.tgz#35654cf6c49ae162d5bc90843d5437dc38008d43"
+  integrity sha512-Icd9KEgdnFfJs39KyRyr0jQ7EKhq8U6CcHRMGAS45fp5qgUvxL3ujUCfWFttUK2UErqZNj97t9gsVPNAqcwoCg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@18.0.6":
   version "18.0.6"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.6.tgz#36652900024842b74607a17786b6662dd1e103a1"
@@ -188,13 +195,12 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*":
-  version "18.0.21"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.21.tgz#b8209e9626bb00a34c76f55482697edd2b43cc67"
-  integrity sha512-7QUCOxvFgnD5Jk8ZKlUAhVcRj7GuJRjnjjiY/IUBWKgOlnvDvTMLD4RTF7NPyVmbRhNrbomZiOepg7M/2Kj1mA==
+"@types/react@*", "@types/react@17.0.2":
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.2.tgz#3de24c4efef902dd9795a49c75f760cbe4f7a5a8"
+  integrity sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==
   dependencies:
     "@types/prop-types" "*"
-    "@types/scheduler" "*"
     csstype "^3.0.2"
 
 "@types/react@17.0.39":
@@ -927,6 +933,11 @@ grapheme-splitter@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz#9cf3a665c6247479896834af35cf1dbb4400767e"
   integrity sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==
+
+graphql@^16.5.0:
+  version "16.6.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.6.0.tgz#c2dcffa4649db149f6282af726c8c83f1c7c5fdb"
+  integrity sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==
 
 has-bigints@^1.0.1, has-bigints@^1.0.2:
   version "1.0.2"
