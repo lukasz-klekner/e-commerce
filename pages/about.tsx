@@ -1,13 +1,14 @@
 import { Footer } from "../components/Footer"
 import { Header } from "../components/Header"
+import { Main } from "../components/Main"
 
 const About = () => {
     return (
-    <div>
+    <div className="max-w-7xl mx-auto w-full">
         <Header />
-        <main>
+        <Main>
             About me
-        </main>
+        </Main>
         <Footer />
     </div>
     )
