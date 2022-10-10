@@ -6,8 +6,8 @@ import { NavLink } from './NavLink'
 
 const navItems = [
   { name: 'About', href: '/about' },
-  { name: 'Products', href: '/products' },
-  // { name: 'History', href: '/history'},
+  { name: 'Products SSG', href: '/products' },
+  { name: 'Products CSR', href: '/products-csr' },
   // { name: 'Services', href: '/services'},
   // { name: 'Projects', href: '/projects'},
   // { name: 'Blogs', href: '/blogs'},
