@@ -38,6 +38,7 @@ const ProductsCSRPage = () => {
         <li key={id} className='shadow-xl border-2 p-4'>
           <ProductDetails
             data={{
+              id,
               description,
               title,
               thumbnailAlt: title,

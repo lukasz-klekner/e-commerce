@@ -1,4 +1,5 @@
 import { InferGetStaticPropsType } from 'next'
+import Link from 'next/link'
 import { ProductDetails } from '../../components/Product'
 
 const ProductsDetailsPage = ({
@@ -9,15 +10,21 @@ const ProductsDetailsPage = ({
   }
 
   return (
-    <ProductDetails
-      data={{
-        description: data.description,
-        title: data.title,
-        thumbnailAlt: data.title,
-        rating: data.rating.rate,
-        thumbnailUrl: data.image,
-      }}
-    />
+    <>
+      <Link href='/products'>
+        <a>Wróć do strony produktów</a>
+      </Link>
+      <ProductDetails
+        data={{
+          id: data.id,
+          description: data.description,
+          title: data.title,
+          thumbnailAlt: data.title,
+          rating: data.rating.rate,
+          thumbnailUrl: data.image,
+        }}
+      />
+    </>
   )
 }
 

@@ -7,10 +7,11 @@ const ProductsPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-      {data.map(({ id, description, image, title, rating }) => (
+      {data.map(({ id, image, title }) => (
         <li key={id} className='shadow-xl border-2 p-4'>
           <ProductListItem
             data={{
+              id,
               title,
               thumbnailAlt: title,
               thumbnailUrl: image,
