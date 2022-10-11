@@ -1,6 +1,6 @@
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
-import { Product } from '../components/Product'
+import { ProductDetails } from '../components/Product'
 import { Main } from '../components/Main'
 
 const DUMMY_DATA = {
@@ -18,7 +18,7 @@ const Home = () => {
       <Header />
 
       <Main>
-        <Product data={DUMMY_DATA} />
+        <ProductDetails data={DUMMY_DATA} />
       </Main>
 
       <Footer />

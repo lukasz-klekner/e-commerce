@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { Product } from '../components/Product'
+import { ProductDetails } from '../components/Product'
 
 interface StoreAPIResponse {
   id: number
@@ -36,7 +36,7 @@ const ProductsCSRPage = () => {
     <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
       {data.map(({ id, description, image, title, rating }) => (
         <li key={id} className='shadow-xl border-2 p-4'>
-          <Product
+          <ProductDetails
             data={{
               description,
               title,
