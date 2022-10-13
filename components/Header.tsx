@@ -6,7 +6,7 @@ import { NavLink } from './NavLink'
 
 const navItems = [
   { name: 'About', href: '/about' },
-  { name: 'Products SSG', href: '/products' },
+  { name: 'Products SSG', href: '/products-ssg/1' },
   { name: 'Products CSR', href: '/products-csr' },
   // { name: 'Services', href: '/services'},
   // { name: 'Projects', href: '/projects'},
@@ -28,10 +28,7 @@ export const Header = () => {
           </div>
 
           <div className='md:flex md:items-center md:gap-12'>
-            <nav
-              className='hidden md:block'
-              aria-labelledby='header-navigation'
-            >
+            <nav className='hidden md:block' ariaLabelledby='header-navigation'>
               <h2 className='sr-only' id='header-navigation'>
                 Header navigation
               </h2>
@@ -73,8 +70,8 @@ export const Header = () => {
                     stroke-width='2'
                   >
                     <path
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
                       d='M4 6h16M4 12h16M4 18h16'
                     />
                   </svg>
