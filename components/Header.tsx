@@ -28,7 +28,10 @@ export const Header = () => {
           </div>
 
           <div className='md:flex md:items-center md:gap-12'>
-            <nav className='hidden md:block' ariaLabelledby='header-navigation'>
+            <nav
+              className='hidden md:block'
+              aria-labelledby='header-navigation'
+            >
               <h2 className='sr-only' id='header-navigation'>
                 Header navigation
               </h2>
@@ -67,7 +70,7 @@ export const Header = () => {
                     fill='none'
                     viewBox='0 0 24 24'
                     stroke='currentColor'
-                    stroke-width='2'
+                    strokeWidth='2'
                   >
                     <path
                       strokeLinecap='round'
