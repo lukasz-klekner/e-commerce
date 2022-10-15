@@ -6,7 +6,6 @@ import { Pagination } from '../../components/Pagination'
 
 const ProductsPage = ({
   data,
-  pageId,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter()
 
@@ -31,7 +30,7 @@ const ProductsPage = ({
         ))}
       </ul>
       <Pagination
-        currentPage={Number(pageId)}
+        currentPage={Number(router.query.productsPage)}
         onPageChange={(page: number) => router.push(`/products-ssg/${page}`)}
       />
     </div>
@@ -78,7 +77,6 @@ export const getStaticProps = async ({
   return {
     props: {
       data: response,
-      pageId: params.productsPage,
     },
   }
 }
