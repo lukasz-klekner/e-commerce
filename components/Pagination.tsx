@@ -1,13 +1,18 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 
 interface PaginationProps {
+  quantity: number
   currentPage: number
   onPageChange: (page: number) => void
 }
 
-const PAGES = Array.from({ length: 10 }, (_, k) => k + 1)
+export function Pagination({
+  quantity,
+  currentPage,
+  onPageChange,
+}: PaginationProps) {
+  const PAGES = Array.from({ length: quantity }, (_, k) => k + 1)
 
-export function Pagination({ currentPage, onPageChange }: PaginationProps) {
   const onNext = () => {
     onPageChange(currentPage + 1)
   }
@@ -35,14 +40,14 @@ export function Pagination({ currentPage, onPageChange }: PaginationProps) {
         </button>
       </div>
       <div className='hidden sm:flex-1 sm:flex sm:items-center sm:justify-between'>
-        <div>
+        {/* <div>
           <p className='text-sm text-gray-700'>
             Showing{' '}
             <span className='font-medium'>{(currentPage - 1) * 25 + 1}</span> to{' '}
             <span className='font-medium'>{currentPage * 25}</span> of{' '}
-            <span className='font-medium'>250</span> results
+            <span className='font-medium'>{PAGES.length * 25}</span> results
           </p>
-        </div>
+        </div> */}
         <div>
           <nav
             className='relative z-0 inline-flex rounded-md shadow-sm -space-x-px'
