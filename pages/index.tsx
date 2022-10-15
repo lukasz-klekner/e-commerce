@@ -1,6 +1,6 @@
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
-import { ProductDetails } from '../components/Product'
+import { ProductDetails } from '../components/ProductDetails'
 import { Main } from '../components/Main'
 
 const DUMMY_DATA = {

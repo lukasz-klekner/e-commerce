@@ -1,10 +1,10 @@
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 
-import { getProducts } from '../../api/getProducts'
-import { ProductListItem } from '../../components/Product'
-import { Pagination } from '../../components/Pagination'
 import { InferGetStaticPathsType } from '../../types'
+import { getProducts } from '../../api/getProducts'
+import { ProductListItem } from '../../components/ProductListItem'
+import { Pagination } from '../../components/Pagination'
 
 const ProductsPage = ({
   data,

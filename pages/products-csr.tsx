@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'
 
 import { getProducts } from '../api/getProducts'
 import { Pagination } from '../components/Pagination'
-import { ProductListItem } from '../components/Product'
+import { ProductListItem } from '../components/ProductListItem'
 
 const ProductsCSRPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
