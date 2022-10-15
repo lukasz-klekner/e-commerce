@@ -1,34 +1,9 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 
+import { getProducts } from '../api/getProducts'
 import { Pagination } from '../components/Pagination'
-import { ProductDetails } from '../components/Product'
-
-interface StoreAPIResponse {
-  id: number
-  title: string
-  price: number
-  description: string
-  category: string
-  image: string
-  rating: {
-    rate: number
-    count: number
-  }
-}
-
-const LIMIT = 25
-
-const getProducts = async (page: number) => {
-  const response = await fetch(
-    `https://naszsklep-api.vercel.app/api/products?take=${LIMIT}&offset=${
-      (page - 1) * 25
-    }`
-  )
-  const data: StoreAPIResponse[] = await response.json()
-
-  return data
-}
+import { ProductListItem } from '../components/Product'
 
 const ProductsCSRPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -50,16 +25,14 @@ const ProductsCSRPage = () => {
 
   return (
     <div>
-      <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-        {data.map(({ id, description, image, title, rating }) => (
-          <li key={id} className='shadow-3xl border-2 p-4'>
-            <ProductDetails
+      <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-8'>
+        {data.map(({ id, image, title }) => (
+          <li key={id} className='shadow-3xl border-2 p-4 rounded-xl'>
+            <ProductListItem
               data={{
                 id,
-                description,
                 title,
                 thumbnailAlt: title,
-                rating: rating.rate,
                 thumbnailUrl: image,
               }}
             />

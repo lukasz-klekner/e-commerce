@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 
 import { ProductListItem } from '../../components/Product'
 import { Pagination } from '../../components/Pagination'
+import { getProducts } from '../../api/getProducts'
 
 const ProductsPage = ({
   data,
@@ -15,9 +16,9 @@ const ProductsPage = ({
 
   return (
     <div>
-      <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+      <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-8'>
         {data.map(({ id, image, title }) => (
-          <li key={id} className='shadow-xl border-2 p-4'>
+          <li key={id} className='shadow-xl border-2 p-4 rounded-xl'>
             <ProductListItem
               data={{
                 id,
@@ -36,19 +37,6 @@ const ProductsPage = ({
       />
     </div>
   )
-}
-
-const LIMIT = 25
-
-const getProducts = async (page: number) => {
-  const response = await fetch(
-    `https://naszsklep-api.vercel.app/api/products?take=${LIMIT}&offset=${
-      (page - 1) * 25
-    }`
-  )
-  const data: StoreAPIResponse[] = await response.json()
-
-  return data
 }
 
 export const getStaticPaths = async () => {
@@ -79,19 +67,6 @@ export const getStaticProps = async ({
     props: {
       data: response,
     },
-  }
-}
-
-interface StoreAPIResponse {
-  id: number
-  title: string
-  price: number
-  description: string
-  category: string
-  image: string
-  rating: {
-    rate: number
-    count: number
   }
 }
 

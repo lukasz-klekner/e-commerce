@@ -49,7 +49,7 @@ interface ProductListItemProps {
 export const ProductListItem = ({ data }: ProductListItemProps) => {
   return (
     <>
-      <div className='bg-white p-8'>
+      <div className='bg-white p-8 rounded-xl'>
         <Image
           src={data.thumbnailUrl}
           alt={data.thumbnailAlt}
