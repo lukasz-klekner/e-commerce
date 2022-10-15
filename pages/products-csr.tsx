@@ -67,6 +67,7 @@ const ProductsCSRPage = () => {
         ))}
       </ul>
       <Pagination
+        quantity={10}
         currentPage={currentPage}
         onPageChange={(page: number) => setCurrentPage(page)}
       />
