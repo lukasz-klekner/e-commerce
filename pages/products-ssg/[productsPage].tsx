@@ -1,9 +1,10 @@
-import { InferGetStaticPropsType } from 'next'
+import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 
+import { getProducts } from '../../api/getProducts'
 import { ProductListItem } from '../../components/Product'
 import { Pagination } from '../../components/Pagination'
-import { getProducts } from '../../api/getProducts'
+import { InferGetStaticPathsType } from '../../types'
 
 const ProductsPage = ({
   data,
@@ -54,7 +55,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({
   params,
-}: InferGetStaticPaths<typeof getStaticPaths>) => {
+}: GetStaticPropsContext<InferGetStaticPathsType<typeof getStaticPaths>>) => {
   if (!params?.productsPage) {
     return {
       props: {},
@@ -69,11 +70,5 @@ export const getStaticProps = async ({
     },
   }
 }
-
-export type InferGetStaticPaths<T> = T extends () => Promise<{
-  paths: Array<{ params: infer R }>
-}>
-  ? { params?: R }
-  : never
 
 export default ProductsPage
