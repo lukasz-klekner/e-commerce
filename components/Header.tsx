@@ -5,7 +5,6 @@ import { Logo } from '../icons/Logo'
 import { NavLink } from './NavLink'
 
 const navItems = [
-  { name: 'About', href: '/about' },
   { name: 'Products CSR', href: '/products-csr' },
   { name: 'Products SSG', href: '/products-ssg/1' },
   { name: 'Products ISR', href: '/products-isr/1' },
