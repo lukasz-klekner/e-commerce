@@ -19,20 +19,20 @@ export function Pagination({ currentPage, onPageChange }: PaginationProps) {
   return (
     <div className='bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6'>
       <div className='flex-1 flex justify-between sm:hidden'>
-        <a
-          href='#'
+        <button
+          type='button'
           className='relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50'
           onClick={onPrevious}
         >
           Previous
-        </a>
-        <a
-          href='#'
+        </button>
+        <button
+          type='button'
           className='ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50'
           onClick={onNext}
         >
           Next
-        </a>
+        </button>
       </div>
       <div className='hidden sm:flex-1 sm:flex sm:items-center sm:justify-between'>
         <div>
@@ -48,8 +48,8 @@ export function Pagination({ currentPage, onPageChange }: PaginationProps) {
             className='relative z-0 inline-flex rounded-md shadow-sm -space-x-px'
             aria-label='Pagination'
           >
-            <a
-              href='#'
+            <button
+              type='button'
               className='relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
             >
               <span className='sr-only'>Previous</span>
@@ -58,11 +58,11 @@ export function Pagination({ currentPage, onPageChange }: PaginationProps) {
                 aria-hidden='true'
                 onClick={onPrevious}
               />
-            </a>
+            </button>
             {PAGES.map((pageNumber) => (
-              <a
+              <button
+                type='button'
                 key={pageNumber}
-                href='#'
                 className={`bg-white  hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium border-gray-300 ${
                   currentPage === pageNumber
                     ? 'text-indigo-600 text-xl'
@@ -71,10 +71,10 @@ export function Pagination({ currentPage, onPageChange }: PaginationProps) {
                 onClick={() => onPageChange(pageNumber)}
               >
                 {pageNumber}
-              </a>
+              </button>
             ))}
-            <a
-              href='#'
+            <button
+              type='button'
               className='relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
             >
               <span className='sr-only'>Next</span>
@@ -83,7 +83,7 @@ export function Pagination({ currentPage, onPageChange }: PaginationProps) {
                 aria-hidden='true'
                 onClick={onNext}
               />
-            </a>
+            </button>
           </nav>
         </div>
       </div>
