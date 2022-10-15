@@ -6,11 +6,9 @@ import { NavLink } from './NavLink'
 
 const navItems = [
   { name: 'About', href: '/about' },
-  { name: 'Products SSG', href: '/products-ssg/1' },
   { name: 'Products CSR', href: '/products-csr' },
-  // { name: 'Services', href: '/services'},
-  // { name: 'Projects', href: '/projects'},
-  // { name: 'Blogs', href: '/blogs'},
+  { name: 'Products SSG', href: '/products-ssg/1' },
+  { name: 'Products ISR', href: '/products-isr/1' },
 ]
 
 export const Header = () => {
