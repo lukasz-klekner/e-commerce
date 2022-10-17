@@ -24,7 +24,7 @@ const ProductsCSRPage = () => {
   }
 
   return (
-    <div>
+    <>
       <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-8'>
         {data.map(({ id, image, title }) => (
           <li key={id} className='shadow-3xl border-2 p-4 rounded-xl'>
@@ -44,7 +44,7 @@ const ProductsCSRPage = () => {
         currentPage={currentPage}
         onPageChange={(page: number) => setCurrentPage(page)}
       />
-    </div>
+    </>
   )
 }
 

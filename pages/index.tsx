@@ -1,7 +1,4 @@
-import { Footer } from '../components/Footer'
-import { Header } from '../components/Header'
 import { ProductDetails } from '../components/ProductDetails'
-import { Main } from '../components/Main'
 
 const DUMMY_DATA = {
   id: 111,
@@ -15,14 +12,8 @@ const DUMMY_DATA = {
 
 const Home = () => {
   return (
-    <div className='flex flex-col min-h-screen max-w-7xl mx-auto w-full'>
-      <Header />
-
-      <Main>
-        <ProductDetails data={DUMMY_DATA} />
-      </Main>
-
-      <Footer />
+    <div className='bg-blue-500 text-white flex-grow p-6 gap-6 grid sm:grid-cols-2'>
+      <ProductDetails data={DUMMY_DATA} />
     </div>
   )
 }
