@@ -8,6 +8,8 @@ const DUMMY_DATA = {
   thumbnailAlt: 'barista nalewa kawe do Chemexa',
   rating: 5,
   title: 'Fake product',
+  longDescription:
+    '## Generic\nCarbonite web goalkeeper gloves are ergonomically designed to give easy fit\n\n### Fantastic\nThe Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J\n\n## Details\n- Plastic\n- cyan\n- Movies\n\n![](http://placeimg.com/128/128/business)\n\nEnim eum voluptatum autem vel non deleniti similique reprehenderit molestiae. [quo quasi laboriosam](http://placeimg.com/320/320/fashion) Est voluptatem consequatur.',
 }
 
 const Home = () => {
