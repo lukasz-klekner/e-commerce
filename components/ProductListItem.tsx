@@ -25,7 +25,7 @@ export const ProductListItem = ({ data }: ProductListItemProps) => {
           objectFit='contain'
         />
       </div>
-      <Link href={`products/${data.id}`}>
+      <Link href={`details/${data.id}`}>
         <a>
           <h2 className='p-4 text-2xl text-bold'>{data.title}</h2>
         </a>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 
-import { getProducts } from '../api/getProducts'
+import { getProductsPerPage } from '../api/getProducts'
 import { Pagination } from '../components/Pagination'
 import { ProductListItem } from '../components/ProductListItem'
 
@@ -9,7 +9,7 @@ const ProductsCSRPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const { data, isLoading, error } = useQuery(
     ['products', currentPage],
-    () => getProducts(currentPage),
+    () => getProductsPerPage(currentPage),
     {
       keepPreviousData: true,
     }
