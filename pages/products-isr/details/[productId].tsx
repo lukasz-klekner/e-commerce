@@ -1,21 +1,37 @@
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
-import { useRouter } from 'next/router'
-import { ProductDetails } from '../../../components/ProductDetails'
+import { NextSeo } from 'next-seo'
 
+import { ProductDetails } from '../../../components/ProductDetails'
 import { InferGetStaticPathsType } from '../../../types'
 import { getProduct, getProducts } from '../../../api/getProducts'
 
 const ProductPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const router = useRouter()
-
   if (!data) {
     return <div>Coś poszło nie tak :(</div>
   }
 
   return (
     <div>
+      <NextSeo
+        title={data.title}
+        description={data.description}
+        canonical={`shop-lukasz-klekner.vercel.app/products-isr.details/${data.id}`}
+        openGraph={{
+          url: `shop-lukasz-klekner.vercel.app/products-isr.details/${data.id}`,
+          title: data.title,
+          description: data.description,
+          images: [
+            {
+              url: data.image,
+              alt: data.title,
+              type: 'image/jpeg',
+            },
+          ],
+          site_name: 'E-commerce',
+        }}
+      />
       <ProductDetails
         data={{
           id: data.id,

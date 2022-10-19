@@ -1,4 +1,3 @@
-import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
@@ -22,24 +21,6 @@ export const ProductDetails = ({ data }: ProductProps) => {
   return (
     <>
       <div className='bg-white p-8'>
-        <NextSeo
-          title={data.title}
-          description={data.description}
-          canonical={`shop-lukasz-klekner.vercel.app`}
-          openGraph={{
-            url: `shop-lukasz-klekner.vercel.app`,
-            title: data.title,
-            description: data.description,
-            images: [
-              {
-                url: data.thumbnailUrl,
-                alt: data.thumbnailAlt,
-                type: 'image/jpeg',
-              },
-            ],
-            site_name: 'E-commerce',
-          }}
-        />
         <Image
           src={data.thumbnailUrl}
           alt={data.thumbnailAlt}
