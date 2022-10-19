@@ -3,6 +3,7 @@ interface StoreAPIResponse {
   title: string
   price: number
   description: string
+  longDescription: string
   category: string
   image: string
   rating: {
@@ -13,7 +14,7 @@ interface StoreAPIResponse {
 
 const LIMIT = 24
 
-export const getProducts = async (page: number) => {
+export const getProductsPerPage = async (page: number) => {
   const response = await fetch(
     `https://naszsklep-api.vercel.app/api/products?take=${LIMIT}&offset=${
       (page - 1) * LIMIT
@@ -21,5 +22,22 @@ export const getProducts = async (page: number) => {
   )
   const data: StoreAPIResponse[] = await response.json()
 
+  return data
+}
+
+export const getProducts = async (quantity: number) => {
+  const response = await fetch(
+    `https://naszsklep-api.vercel.app/api/products?take=${quantity}`
+  )
+  const data: StoreAPIResponse[] = await response.json()
+
+  return data
+}
+
+export const getProduct = async (id: string) => {
+  const response = await fetch(
+    `https://naszsklep-api.vercel.app/api/products/${id}`
+  )
+  const data: StoreAPIResponse = await response.json()
   return data
 }
