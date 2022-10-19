@@ -17,9 +17,9 @@ const ProductPage = ({
       <NextSeo
         title={data.title}
         description={data.description}
-        canonical={`shop-lukasz-klekner.vercel.app/products-isr.details/${data.id}`}
+        canonical={`https://shop-five-tan.vercel.app/products-isr/details/${data.id}`}
         openGraph={{
-          url: `shop-lukasz-klekner.vercel.app/products-isr.details/${data.id}`,
+          url: `https://shop-five-tan.vercel.app/products-isr/details/${data.id}`,
           title: data.title,
           description: data.description,
           images: [
