@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 import { Rating } from './Rating'
 import { MarkdownParser } from './MarkdownParser'
+import { MarkdownResult } from '../types'
 
 export interface ProductDetails {
   id: number
@@ -11,7 +11,7 @@ export interface ProductDetails {
   thumbnailUrl: string
   thumbnailAlt: string
   rating: number
-  longDescription: MDXRemoteSerializeResult<Record<string, unknown>>
+  longDescription: MarkdownResult
 }
 
 interface ProductProps {
