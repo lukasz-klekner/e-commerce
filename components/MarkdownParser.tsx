@@ -1,9 +1,14 @@
 import Link from 'next/link'
-import ReactMarkdown from 'react-markdown'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 
-export const MarkdownParser = ({ children }: { children: string }) => {
+export const MarkdownParser = ({
+  children,
+}: {
+  children: MDXRemoteSerializeResult<Record<string, unknown>>
+}) => {
   return (
-    <ReactMarkdown
+    <MDXRemote
+      {...children}
       components={{
         a: ({ href, ...props }) => {
           if (!href) {
@@ -11,6 +16,12 @@ export const MarkdownParser = ({ children }: { children: string }) => {
           }
 
           const APP_URL = process.env.APP_URL!
+          // console.log(process.env.APP_URL)
+          // console.log(APP_URL)
+
+          // if (!APP_URL) {
+          //   throw new Error(`Missing APP_URL env variable!`)
+          // }
 
           if (
             href.startsWith('http://' || 'https://') &&
@@ -33,8 +44,6 @@ export const MarkdownParser = ({ children }: { children: string }) => {
           )
         },
       }}
-    >
-      {children}
-    </ReactMarkdown>
+    />
   )
 }

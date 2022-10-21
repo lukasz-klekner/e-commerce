@@ -1,5 +1,6 @@
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import { NextSeo } from 'next-seo'
+import { serialize } from 'next-mdx-remote/serialize'
 
 import { ProductDetails } from '../../../components/ProductDetails'
 import { InferGetStaticPathsType } from '../../../types'
@@ -68,13 +69,27 @@ export const getStaticProps = async ({
   if (!params?.productId) {
     return {
       props: {},
+      notFound: true,
     }
   }
 
   const data = await getProduct(params.productId)
+
+  if (!data) {
+    return {
+      props: {},
+      notFound: true,
+    }
+  }
+
+  const parsedMarkdown = await serialize(data.longDescription)
+
   return {
     props: {
-      data,
+      data: {
+        ...data,
+        longDescription: parsedMarkdown,
+      },
     },
     revalidate: 10,
   }
