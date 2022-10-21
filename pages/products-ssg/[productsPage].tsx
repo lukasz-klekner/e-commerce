@@ -2,7 +2,7 @@ import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 
 import { InferGetStaticPathsType } from '../../types'
-import { getProducts } from '../../api/getProducts'
+import { getProductsPerPage } from '../../api/getProducts'
 import { ProductListItem } from '../../components/ProductListItem'
 import { Pagination } from '../../components/Pagination'
 
@@ -62,7 +62,7 @@ export const getStaticProps = async ({
     }
   }
 
-  const response = await getProducts(Number(params.productsPage))
+  const response = await getProductsPerPage(Number(params.productsPage))
 
   return {
     props: {
