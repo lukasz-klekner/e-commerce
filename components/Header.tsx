@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Logo } from '../icons/Logo'
+import { CartBar } from './Cart/CartBar'
 
 import { NavLink } from './NavLink'
 
@@ -41,6 +42,8 @@ export const Header = () => {
                 ))}
               </ul>
             </nav>
+
+            <CartBar />
 
             <div className='flex items-center gap-4'>
               <div className='sm:flex sm:gap-4'>
