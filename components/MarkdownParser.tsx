@@ -13,13 +13,11 @@ export const MarkdownParser = ({ children }: { children: MarkdownResult }) => {
             return <a {...props} />
           }
 
-          const APP_URL = process.env.APP_URL!
-          // console.log(process.env.APP_URL)
-          // console.log(APP_URL)
+          const APP_URL = process.env.NEXT_PUBLIC_APP_URL!
 
-          // if (!APP_URL) {
-          //   throw new Error(`Missing APP_URL env variable!`)
-          // }
+          if (!APP_URL) {
+            throw new Error(`Missing APP_URL env variable!`)
+          }
 
           if (
             href.startsWith('http://' || 'https://') &&
