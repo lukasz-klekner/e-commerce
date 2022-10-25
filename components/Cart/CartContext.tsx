@@ -7,6 +7,7 @@ interface CartItem {
 
 interface CartState {
   items: CartItem[]
+  addItemToCart: (cartItem: CartItem) => void
 }
 
 export const CartStateContext = createContext<CartState | null>(null)
@@ -16,19 +17,13 @@ export const CartStateContextProvider = ({
 }: {
   children: ReactNode
 }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      title: 'Koszulka',
-      price: 23.99,
-    },
-    {
-      title: 'Spodnie',
-      price: 99.99,
-    },
-  ])
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
+
+  const addItemToCart = (cartItem: CartItem) =>
+    setCartItems((prevState) => [...prevState, cartItem])
 
   return (
-    <CartStateContext.Provider value={{ items: cartItems }}>
+    <CartStateContext.Provider value={{ items: cartItems, addItemToCart }}>
       {children}
     </CartStateContext.Provider>
   )
