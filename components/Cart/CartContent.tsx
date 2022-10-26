@@ -6,10 +6,12 @@ export const CartContent = () => {
   return (
     <div className='col-span-2'>
       <ul className='divide-y divide-gray-200'>
-        {items.map(({ title, price }, index) => {
+        {items.map(({ title, price, count }, index) => {
           return (
             <li className='py-4 flex justify-between' key={`${title}_${index}`}>
-              <div>{title}</div>
+              <div>
+                {title} x {count}
+              </div>
               <div className='flex'>
                 <span>{price}</span>
                 <button>
@@ -20,6 +22,7 @@ export const CartContent = () => {
                     strokeWidth={1.5}
                     stroke='currentColor'
                     className='w-6 h-6 ml-2 text-teal-600'
+                    aria-label='Delete an item'
                   >
                     <path
                       strokeLinecap='round'

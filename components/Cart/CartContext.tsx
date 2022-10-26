@@ -1,8 +1,10 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
 
 interface CartItem {
+  id: number
   title: string
   price: number
+  count: number
 }
 
 interface CartState {
@@ -20,7 +22,19 @@ export const CartStateContextProvider = ({
   const [cartItems, setCartItems] = useState<CartItem[]>([])
 
   const addItemToCart = (cartItem: CartItem) =>
-    setCartItems((prevState) => [...prevState, cartItem])
+    setCartItems((prevState) => {
+      const existingItemIndex = prevState.findIndex(
+        (item) => item.id === cartItem.id
+      )
+
+      if (!existingItemIndex) {
+        return [...prevState, cartItem]
+      }
+
+      return prevState.map((item) =>
+        item.id === cartItem.id ? { ...item, count: item.count + 1 } : item
+      )
+    })
 
   return (
     <CartStateContext.Provider value={{ items: cartItems, addItemToCart }}>
