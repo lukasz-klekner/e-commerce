@@ -1,12 +1,12 @@
 import { useCartState } from './CartContext'
 
 export const CartContent = () => {
-  const { items } = useCartState()
+  const { items, removeItemFromCart } = useCartState()
 
   return (
     <div className='col-span-2'>
       <ul className='divide-y divide-gray-200'>
-        {items.map(({ title, price, count }, index) => {
+        {items.map(({ id, title, price, count }, index) => {
           return (
             <li className='py-4 flex justify-between' key={`${title}_${index}`}>
               <div>
@@ -14,7 +14,7 @@ export const CartContent = () => {
               </div>
               <div className='flex'>
                 <span>{price}</span>
-                <button>
+                <button onClick={() => removeItemFromCart(id)}>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'

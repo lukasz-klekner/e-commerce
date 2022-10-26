@@ -10,6 +10,7 @@ interface CartItem {
 interface CartState {
   items: CartItem[]
   addItemToCart: (cartItem: CartItem) => void
+  removeItemFromCart: (id: CartItem['id']) => void
 }
 
 export const CartStateContext = createContext<CartState | null>(null)
@@ -27,7 +28,7 @@ export const CartStateContextProvider = ({
         (item) => item.id === cartItem.id
       )
 
-      if (!existingItemIndex) {
+      if (existingItemIndex === -1) {
         return [...prevState, cartItem]
       }
 
@@ -36,8 +37,23 @@ export const CartStateContextProvider = ({
       )
     })
 
+  const removeItemFromCart = (id: number) =>
+    setCartItems((prevState) => {
+      const itemToDelete = prevState.find((item) => item.id === id)
+
+      if (itemToDelete && itemToDelete.count === 1) {
+        return prevState.filter((item) => itemToDelete.id !== item.id)
+      }
+
+      return prevState.map((item) =>
+        itemToDelete?.id === item.id ? { ...item, count: item.count - 1 } : item
+      )
+    })
+
   return (
-    <CartStateContext.Provider value={{ items: cartItems, addItemToCart }}>
+    <CartStateContext.Provider
+      value={{ items: cartItems, addItemToCart, removeItemFromCart }}
+    >
       {children}
     </CartStateContext.Provider>
   )
