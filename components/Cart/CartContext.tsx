@@ -1,6 +1,14 @@
-import { createContext, ReactNode, useContext, useState } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
-interface CartItem {
+import { getCartItemsFromStorage, setCartItemsInStorage } from './CartStorage'
+
+export interface CartItem {
   id: number
   title: string
   price: number
@@ -49,6 +57,14 @@ export const CartStateContextProvider = ({
         itemToDelete?.id === item.id ? { ...item, count: item.count - 1 } : item
       )
     })
+
+  useEffect(() => {
+    setCartItems(getCartItemsFromStorage())
+  }, [])
+
+  useEffect(() => {
+    setCartItemsInStorage(cartItems)
+  }, [cartItems])
 
   return (
     <CartStateContext.Provider
