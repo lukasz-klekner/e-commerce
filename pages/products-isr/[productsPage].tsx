@@ -2,12 +2,13 @@ import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 
 import { InferGetStaticPathsType } from '../../types'
-import { getProductsPerPage } from '../../api/getProducts'
+import { getPageNumer, getProductsPerPage } from '../../api/getProducts'
 import { ProductListItem } from '../../components/ProductListItem'
 import { Pagination } from '../../components/Pagination'
 
 const ProductsPage = ({
   data,
+  pageCounter,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter()
 
@@ -32,7 +33,7 @@ const ProductsPage = ({
         ))}
       </ul>
       <Pagination
-        quantity={30}
+        maxPages={pageCounter}
         currentPage={Number(router.query.productsPage)}
         onPageChange={(page: number) => router.push(`/products-isr/${page}`)}
       />
@@ -63,10 +64,12 @@ export const getStaticProps = async ({
   }
 
   const response = await getProductsPerPage(Number(params.productsPage))
+  const page = await getPageNumer()
 
   return {
     props: {
       data: response,
+      pageCounter: page,
     },
     revalidate: 10,
   }

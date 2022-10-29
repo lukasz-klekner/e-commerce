@@ -14,6 +14,24 @@ interface StoreAPIResponse {
 
 const LIMIT = 24
 
+export const getPageNumer = async () => {
+  let shouldFetchData = true
+  let page = 1
+
+  while (shouldFetchData) {
+    const data = await getProductsPerPage(page)
+
+    if (data.length === 0) {
+      shouldFetchData = false
+      break
+    }
+
+    page++
+  }
+
+  return page
+}
+
 export const getProductsPerPage = async (page: number) => {
   const response = await fetch(
     `https://naszsklep-api.vercel.app/api/products?take=${LIMIT}&offset=${

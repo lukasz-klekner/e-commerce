@@ -1,25 +1,23 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
+import { useState } from 'react'
 
 interface PaginationProps {
-  quantity: number
+  maxPages: number
   currentPage: number
   onPageChange: (page: number) => void
 }
 
 export function Pagination({
-  quantity,
+  maxPages,
   currentPage,
   onPageChange,
 }: PaginationProps) {
-  const PAGES = Array.from({ length: quantity }, (_, k) => k + 1)
+  const [slider, setSlider] = useState(1)
+  const PAGES = Array.from({ length: 10 }, (_, k) => k + 1 + (slider - 1) * 10)
 
-  const onNext = () => {
-    onPageChange(currentPage + 1)
-  }
+  const onNext = () => setSlider((prev) => prev + 1)
 
-  const onPrevious = () => {
-    onPageChange(currentPage - 1)
-  }
+  const onPrevious = () => setSlider((prev) => prev - 1)
 
   return (
     <div className='bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6'>
