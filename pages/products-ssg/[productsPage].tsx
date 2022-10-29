@@ -32,7 +32,7 @@ const ProductsPage = ({
         ))}
       </ul>
       <Pagination
-        quantity={10}
+        maxPages={10}
         currentPage={Number(router.query.productsPage)}
         onPageChange={(page: number) => router.push(`/products-ssg/${page}`)}
       />
