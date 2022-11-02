@@ -49,7 +49,7 @@ const ProductPage = ({
 }
 
 export const getStaticPaths = async () => {
-  const data = await getProducts(500)
+  const data = await getProducts(240)
 
   return {
     paths: data.map(({ id }) => {

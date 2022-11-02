@@ -1,10 +1,10 @@
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
+import ReactPaginate from 'react-paginate'
 
 import { InferGetStaticPathsType } from '../../types'
 import { getPageNumer, getProductsPerPage } from '../../api/getProducts'
 import { ProductListItem } from '../../components/ProductListItem'
-import { Pagination } from '../../components/Pagination'
 
 const ProductsPage = ({
   data,
@@ -17,7 +17,7 @@ const ProductsPage = ({
   }
 
   return (
-    <div>
+    <div className='flex flex-col'>
       <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-8'>
         {data.map(({ id, image, title }) => (
           <li key={id} className='shadow-xl border-2 p-4 rounded-xl'>
@@ -32,10 +32,26 @@ const ProductsPage = ({
           </li>
         ))}
       </ul>
-      <Pagination
-        maxPages={pageCounter}
-        currentPage={Number(router.query.productsPage)}
-        onPageChange={(page: number) => router.push(`/products-isr/${page}`)}
+      <ReactPaginate
+        nextLabel='>'
+        onPageChange={({ selected }: { selected: number }) =>
+          router.push(`/products-isr/${selected}`)
+        }
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={2}
+        pageCount={pageCounter}
+        previousLabel='<'
+        pageClassName='border-2 border-indigo-500 p-2 rounded-xl w-12 text-center'
+        pageLinkClassName='text-indigo-500 font-bold'
+        previousClassName='border-2 border-indigo-500 p-2 rounded-xl w-12 text-center'
+        previousLinkClassName='text-indigo-500 font-bold'
+        nextClassName='border-2 border-indigo-500 p-2 rounded-xl w-12 text-center'
+        nextLinkClassName='text-indigo-500 font-bold'
+        breakLabel='...'
+        breakClassName='border-2 border-indigo-500 p-2 rounded-xl w-12 text-center'
+        breakLinkClassName='text-indigo-500 font-bold'
+        containerClassName='self-end pr-8 flex gap-4'
+        activeClassName='bg-tail-500'
       />
     </div>
   )
@@ -71,7 +87,7 @@ export const getStaticProps = async ({
       data: response,
       pageCounter: page,
     },
-    revalidate: 10,
+    revalidate: 360000,
   }
 }
 
