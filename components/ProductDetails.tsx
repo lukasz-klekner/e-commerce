@@ -5,7 +5,8 @@ import { MarkdownParser } from './MarkdownParser'
 import { MarkdownResult } from '../types'
 
 export interface ProductDetails {
-  id: number
+  id: string
+  slug: string
   description: string
   title: string
   thumbnailUrl: string

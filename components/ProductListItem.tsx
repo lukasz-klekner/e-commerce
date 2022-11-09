@@ -6,7 +6,7 @@ import { useCartState } from './Cart/CartContext'
 
 type ProductListItem = Pick<
   ProductDetails,
-  'id' | 'title' | 'thumbnailUrl' | 'thumbnailAlt'
+  'id' | 'slug' | 'title' | 'thumbnailUrl' | 'thumbnailAlt'
 >
 
 interface ProductListItemProps {
@@ -28,7 +28,7 @@ export const ProductListItem = ({ data }: ProductListItemProps) => {
           objectFit='contain'
         />
       </div>
-      <Link href={`details/${data.id}`}>
+      <Link href={`/products-cms/details/${data.slug}`}>
         <a>
           <h2 className='p-4 text-2xl text-bold'>{data.title}</h2>
         </a>
