@@ -23,7 +23,8 @@ const ProductsPage = ({
           <li key={id} className='shadow-xl border-2 p-4 rounded-xl'>
             <ProductListItem
               data={{
-                id,
+                id: id.toString(),
+                slug: title,
                 title,
                 thumbnailAlt: title,
                 thumbnailUrl: image,

@@ -9,7 +9,7 @@ import {
 import { getCartItemsFromStorage, setCartItemsInStorage } from './CartStorage'
 
 export interface CartItem {
-  id: number
+  id: string
   title: string
   price: number
   count: number
@@ -45,7 +45,7 @@ export const CartStateContextProvider = ({
       )
     })
 
-  const removeItemFromCart = (id: number) =>
+  const removeItemFromCart = (id: string) =>
     setCartItems((prevState) => {
       const itemToDelete = prevState.find((item) => item.id === id)
 

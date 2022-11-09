@@ -5,6 +5,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { ProductDetails } from '../../../components/ProductDetails'
 import { InferGetStaticPathsType } from '../../../types'
 import { getProduct, getProducts } from '../../../api/getProducts'
+import { title } from 'process'
 
 const ProductPage = ({
   data,
@@ -35,7 +36,8 @@ const ProductPage = ({
       />
       <ProductDetails
         data={{
-          id: data.id,
+          id: data.id.toString(),
+          slug: title,
           description: data.description,
           rating: data.rating.rate,
           thumbnailAlt: data.title,
@@ -49,7 +51,7 @@ const ProductPage = ({
 }
 
 export const getStaticPaths = async () => {
-  const data = await getProducts(240)
+  const data = await getProducts(2)
 
   return {
     paths: data.map(({ id }) => {

@@ -30,7 +30,8 @@ const ProductsCSRPage = () => {
           <li key={id} className='shadow-3xl border-2 p-4 rounded-xl'>
             <ProductListItem
               data={{
-                id,
+                id: id.toString(),
+                slug: title,
                 title,
                 thumbnailAlt: title,
                 thumbnailUrl: image,
