@@ -1,31 +1,16 @@
-import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { gql } from '@apollo/client'
 
 import { ProductListItem } from '../../components/ProductListItem'
 import { apolloClient } from '../../graphql/apolloClient'
-
-interface Product {
-  id: string
-  slug: string
-  name: string
-  price: number
-  images: Image[]
-}
-
-interface Image {
-  url: string
-}
-
-interface GetProductListResponse {
-  products: Product[]
-}
+import {
+  GetProductsListDocument,
+  GetProductsListQuery,
+} from '../../generated/graphql'
 
 const ProductsPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const router = useRouter()
-
   if (!data) {
     return <div>Coś poszło nie tak :(</div>
   }
@@ -52,20 +37,8 @@ const ProductsPage = ({
 }
 
 export const getStaticProps = async () => {
-  const { data } = await apolloClient.query<GetProductListResponse>({
-    query: gql`
-      query getProductsList {
-        products {
-          id
-          slug
-          name
-          price
-          images(first: 1) {
-            url
-          }
-        }
-      }
-    `,
+  const { data } = await apolloClient.query<GetProductsListQuery>({
+    query: GetProductsListDocument,
   })
 
   return {

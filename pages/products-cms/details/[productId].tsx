@@ -1,11 +1,17 @@
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import { NextSeo } from 'next-seo'
 import { serialize } from 'next-mdx-remote/serialize'
-import { gql } from '@apollo/client'
 
 import { InferGetStaticPathsType } from '../../../types'
 import { apolloClient } from '../../../graphql/apolloClient'
 import { ProductDetails as ProductDetailsComponent } from '../../../components/ProductDetails'
+import {
+  GetProductDetailsBySlugDocument,
+  GetProductDetailsBySlugQuery,
+  GetProductDetailsBySlugQueryVariables,
+  GetProductsSlugsDocument,
+  GetProductsSlugsQuery,
+} from '../../../generated/graphql'
 
 const ProductPage = ({
   data,
@@ -51,14 +57,8 @@ const ProductPage = ({
 }
 
 export const getStaticPaths = async () => {
-  const { data } = await apolloClient.query<GetProductsSlugsResponse>({
-    query: gql`
-      query getProductsSlugs {
-        products {
-          slug
-        }
-      }
-    `,
+  const { data } = await apolloClient.query<GetProductsSlugsQuery>({
+    query: GetProductsSlugsDocument,
   })
 
   return {
@@ -84,26 +84,13 @@ export const getStaticProps = async ({
   }
 
   const { data } = await apolloClient.query<
-    GetProductDetailsBySlugResponse,
-    { slug: string }
+    GetProductDetailsBySlugQuery,
+    GetProductDetailsBySlugQueryVariables
   >({
     variables: {
       slug: params.productId,
     },
-    query: gql`
-      query GetProductDetailsBySlug($slug: String) {
-        product(where: { slug: $slug }) {
-          id
-          slug
-          name
-          price
-          description
-          images(first: 1) {
-            url
-          }
-        }
-      }
-    `,
+    query: GetProductDetailsBySlugDocument,
   })
 
   if (!data || !data.product) {
@@ -122,31 +109,6 @@ export const getStaticProps = async ({
     },
     revalidate: 10,
   }
-}
-
-interface ProductsSlugs {
-  slug: string
-}
-
-interface GetProductsSlugsResponse {
-  products: ProductsSlugs[]
-}
-
-interface ProductDetails {
-  id: string
-  slug: string
-  name: string
-  price: number
-  description: string
-  images: Image[]
-}
-
-interface Image {
-  url: string
-}
-
-interface GetProductDetailsBySlugResponse {
-  product: ProductDetails
 }
 
 export default ProductPage
