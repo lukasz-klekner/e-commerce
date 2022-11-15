@@ -1,4 +1,27 @@
+import { useForm } from 'react-hook-form'
+import { FormInput } from './FormInput'
+
+export type FormData = {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  cardNumber: string
+  cardExpirationDate: string
+  cardCVC: string
+  postCode: string
+  country: string
+}
+
 export const CheckoutForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>()
+
+  const onSubmit = handleSubmit((data) => console.log(data))
+
   return (
     <section>
       <h1 className='sr-only'>Checkout</h1>
@@ -91,65 +114,29 @@ export const CheckoutForm = () => {
 
           <div className='bg-white py-12 md:py-24'>
             <div className='mx-auto max-w-lg px-4 lg:px-8'>
-              <form className='grid grid-cols-6 gap-4'>
+              <form className='grid grid-cols-6 gap-4' onSubmit={onSubmit}>
                 <div className='col-span-3'>
-                  <label
-                    className='mb-1 block text-sm text-gray-600'
-                    htmlFor='first_name'
-                  >
-                    First Name
-                  </label>
-
-                  <input
-                    className='w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm'
-                    type='text'
-                    id='first_name'
+                  <FormInput
+                    name='firstName'
+                    label='First name'
+                    register={register}
                   />
                 </div>
 
                 <div className='col-span-3'>
-                  <label
-                    className='mb-1 block text-sm text-gray-600'
-                    htmlFor='last_name'
-                  >
-                    Last Name
-                  </label>
-
-                  <input
-                    className='w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm'
-                    type='text'
-                    id='last_name'
+                  <FormInput
+                    name='lastName'
+                    label='Last name'
+                    register={register}
                   />
                 </div>
 
                 <div className='col-span-6'>
-                  <label
-                    className='mb-1 block text-sm text-gray-600'
-                    htmlFor='email'
-                  >
-                    Email
-                  </label>
-
-                  <input
-                    className='w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm'
-                    type='email'
-                    id='email'
-                  />
+                  <FormInput name='email' label='Email' register={register} />
                 </div>
 
                 <div className='col-span-6'>
-                  <label
-                    className='mb-1 block text-sm text-gray-600'
-                    htmlFor='phone'
-                  >
-                    Phone
-                  </label>
-
-                  <input
-                    className='w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm'
-                    type='tel'
-                    id='phone'
-                  />
+                  <FormInput name='phone' label='Phone' register={register} />
                 </div>
 
                 <fieldset className='col-span-6'>
@@ -159,48 +146,29 @@ export const CheckoutForm = () => {
 
                   <div className='-space-y-px rounded-lg bg-white shadow-sm'>
                     <div>
-                      <label className='sr-only' htmlFor='card-number'>
-                        Card Number
-                      </label>
-
-                      <input
-                        className='relative w-full rounded-t-lg border-gray-200 p-2.5 text-sm placeholder-gray-400 focus:z-10'
-                        type='text'
-                        name='card-number'
-                        id='card-number'
+                      <FormInput
+                        name='cardNumber'
                         placeholder='Card number'
+                        register={register}
                       />
                     </div>
 
                     <div className='flex -space-x-px'>
                       <div className='flex-1'>
-                        <label
-                          className='sr-only'
-                          htmlFor='card-expiration-date'
-                        >
-                          Expiration Date
-                        </label>
-
-                        <input
-                          className='relative w-full rounded-bl-lg border-gray-200 p-2.5 text-sm placeholder-gray-400 focus:z-10'
+                        <FormInput
                           type='text'
-                          name='card-expiration-date'
-                          id='card-expiration-date'
+                          name='cardExpirationDate'
                           placeholder='MM / YY'
+                          register={register}
                         />
                       </div>
 
                       <div className='flex-1'>
-                        <label className='sr-only' htmlFor='card-cvc'>
-                          CVC
-                        </label>
-
-                        <input
-                          className='relative w-full rounded-br-lg border-gray-200 p-2.5 text-sm placeholder-gray-400 focus:z-10'
+                        <FormInput
                           type='text'
-                          name='card-cvc'
-                          id='card-cvc'
+                          name='cardCVC'
                           placeholder='CVC'
+                          register={register}
                         />
                       </div>
                     </div>
@@ -221,8 +189,8 @@ export const CheckoutForm = () => {
                       <select
                         className='relative w-full rounded-t-lg border-gray-200 p-2.5 text-sm focus:z-10'
                         id='country'
-                        name='country'
                         autoComplete='country-name'
+                        {...register('country')}
                       >
                         <option>England</option>
                         <option>Wales</option>
@@ -234,17 +202,11 @@ export const CheckoutForm = () => {
                     </div>
 
                     <div>
-                      <label className='sr-only' htmlFor='postal-code'>
-                        ZIP/Post Code
-                      </label>
-
-                      <input
-                        className='relative w-full rounded-b-lg border-gray-200 p-2.5 text-sm placeholder-gray-400 focus:z-10'
+                      <FormInput
                         type='text'
-                        name='postal-code'
-                        id='postal-code'
-                        autoComplete='postal-code'
+                        name='postCode'
                         placeholder='ZIP/Post Code'
+                        register={register}
                       />
                     </div>
                   </div>
