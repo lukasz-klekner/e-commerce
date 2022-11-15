@@ -1,24 +1,32 @@
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { InferType } from 'yup'
+
 import { FormInput } from './FormInput'
 
-export type FormData = {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  cardNumber: string
-  cardExpirationDate: string
-  cardCVC: string
-  postCode: string
-  country: string
-}
+const checkoutFormSchema = yup.object({
+  firstName: yup.string().required(),
+  lastName: yup.string().required(),
+  email: yup.string().email().required(),
+  phone: yup.string().required(),
+  cardNumber: yup.string().required(),
+  cardExpirationDate: yup.string().required(),
+  cardCVC: yup.string().required(),
+  postCode: yup.string().required(),
+  country: yup.string().required(),
+})
+
+export type FormData = InferType<typeof checkoutFormSchema>
 
 export const CheckoutForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>()
+  } = useForm<FormData>({
+    resolver: yupResolver(checkoutFormSchema),
+  })
 
   const onSubmit = handleSubmit((data) => console.log(data))
 
@@ -120,6 +128,7 @@ export const CheckoutForm = () => {
                     name='firstName'
                     label='First name'
                     register={register}
+                    error={errors.firstName?.message}
                   />
                 </div>
 
@@ -128,15 +137,26 @@ export const CheckoutForm = () => {
                     name='lastName'
                     label='Last name'
                     register={register}
+                    error={errors.lastName?.message}
                   />
                 </div>
 
                 <div className='col-span-6'>
-                  <FormInput name='email' label='Email' register={register} />
+                  <FormInput
+                    name='email'
+                    label='Email'
+                    register={register}
+                    error={errors.email?.message}
+                  />
                 </div>
 
                 <div className='col-span-6'>
-                  <FormInput name='phone' label='Phone' register={register} />
+                  <FormInput
+                    name='phone'
+                    label='Phone'
+                    register={register}
+                    error={errors.phone?.message}
+                  />
                 </div>
 
                 <fieldset className='col-span-6'>
@@ -150,6 +170,7 @@ export const CheckoutForm = () => {
                         name='cardNumber'
                         placeholder='Card number'
                         register={register}
+                        error={errors.cardNumber?.message}
                       />
                     </div>
 
@@ -160,6 +181,7 @@ export const CheckoutForm = () => {
                           name='cardExpirationDate'
                           placeholder='MM / YY'
                           register={register}
+                          error={errors.cardExpirationDate?.message}
                         />
                       </div>
 
@@ -169,6 +191,7 @@ export const CheckoutForm = () => {
                           name='cardCVC'
                           placeholder='CVC'
                           register={register}
+                          error={errors.cardCVC?.message}
                         />
                       </div>
                     </div>
@@ -207,6 +230,7 @@ export const CheckoutForm = () => {
                         name='postCode'
                         placeholder='ZIP/Post Code'
                         register={register}
+                        error={errors.postCode?.message}
                       />
                     </div>
                   </div>

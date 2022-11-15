@@ -8,6 +8,7 @@ interface FormInputProps {
   label?: string
   placeholder?: string
   type?: HTMLInputTypeAttribute
+  error?: string
   //   error: FieldErrorsImpl<DeepRequired<FormData>>
 }
 export const FormInput = ({
@@ -16,6 +17,7 @@ export const FormInput = ({
   label,
   register,
   placeholder,
+  error,
 }: FormInputProps) => {
   return (
     <>
@@ -31,9 +33,9 @@ export const FormInput = ({
         {...register(`${name}`)}
       />
 
-      {/* <span role='alert' className='text-red-500 text-xs'>
-        {error[label]?.message}
-      </span> */}
+      <span role='alert' className='text-red-500 text-xs'>
+        {error}
+      </span>
     </>
   )
 }
