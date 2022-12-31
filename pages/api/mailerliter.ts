@@ -7,7 +7,6 @@ const handler: NextApiHandler = async (req, res) => {
 
   const MAILERLITE_TOKEN = process.env.MAILERLITE_TOKEN
   const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID
-  console.log(MAILERLITE_GROUP_ID, MAILERLITE_TOKEN)
 
   if(!MAILERLITE_TOKEN ||!MAILERLITE_GROUP_ID){
     return res.status(500).json({ message: 'Brak zmiennych srodowiskowych!'})
