@@ -18,7 +18,20 @@ export const NewsletterForm = () => {
     resolver: yupResolver(newsletterFormSchema),
   })
 
-  const onSubmit = handleSubmit((data) => console.log(data))
+  const onSubmit = handleSubmit(async ({ email }) => {
+    try {
+    const response = await fetch('http://localhost:3000/api/mailerliter',{ 
+        method: 'POST',     
+        headers: {
+            'Content-Type': 'application/json'
+        },     
+        body: JSON.stringify({
+            email
+        })})
+    } catch (error) {
+        console.error(error)
+    }
+  })
 
   return (
     <section>
