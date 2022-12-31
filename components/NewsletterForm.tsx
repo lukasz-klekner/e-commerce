@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { InferType } from 'yup'
+import { useMutation } from 'react-query'
 
 const newsletterFormSchema = yup.object({
   email: yup.string().email().required(),
@@ -18,20 +19,22 @@ export const NewsletterForm = () => {
     resolver: yupResolver(newsletterFormSchema),
   })
 
-  const onSubmit = handleSubmit(async ({ email }) => {
+  const { mutate } = useMutation('add-to-newsletter', async ({ email } : { email : string} ) => {
     try {
-    const response = await fetch('http://localhost:3000/api/mailerliter',{ 
-        method: 'POST',     
-        headers: {
-            'Content-Type': 'application/json'
-        },     
-        body: JSON.stringify({
-            email
-        })})
-    } catch (error) {
-        console.error(error)
-    }
-  })
+        const response = await fetch('http://localhost:3000/api/mailerliter',{ 
+            method: 'POST',     
+            headers: {
+                'Content-Type': 'application/json'
+            },     
+            body: JSON.stringify({
+                email
+            })})
+        } catch (error) {
+            console.error(error)
+        }
+  })  
+
+  const onSubmit = handleSubmit(data => mutate(data))
 
   return (
     <section>
