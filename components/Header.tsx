@@ -10,6 +10,7 @@ const navItems = [
   { name: 'Products SSG', href: '/products-ssg/1' },
   { name: 'Products ISR', href: '/products-isr/1' },
   { name: 'Products CMS', href: '/products-cms' },
+  { name: 'Newsletter', href: '/newsletter' },
 ]
 
 export const Header = () => {
