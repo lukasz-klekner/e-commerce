@@ -81,12 +81,11 @@ export const getStaticProps = async ({
   }
 
   const response = await getProductsPerPage(Number(params.productsPage))
-  // const page = await getPageNumer()
 
   return {
     props: {
       data: response,
-      pageCounter: 177,
+      pageCounter: await getPageNumer(),
     },
     revalidate: 360000,
   }
