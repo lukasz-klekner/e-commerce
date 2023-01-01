@@ -85,7 +85,7 @@ export const getStaticProps = async ({
   return {
     props: {
       data: response,
-      pageCounter: await getPageNumer(),
+      pageCounter: 177, // should be generated automatically await getPage()
     },
     revalidate: 360000,
   }
