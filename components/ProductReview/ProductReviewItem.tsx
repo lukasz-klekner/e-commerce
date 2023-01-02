@@ -1,4 +1,4 @@
-import { ReviewContentFragment } from "../generated/graphql"
+import { ReviewContentFragment } from "../../generated/graphql"
 
 interface ProductReviewItemProps {
     review: ReviewContentFragment

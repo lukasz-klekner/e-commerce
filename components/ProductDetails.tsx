@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Rating } from './Rating'
 import { MarkdownParser } from './MarkdownParser'
 import { MarkdownResult } from '../types'
-import { ProductReviewList } from './ProductReviewList'
+import { ProductReviewContainer } from './ProductReview/ProductReviewContainer'
 
 export interface ProductDetails {
   id: string
@@ -41,7 +41,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
         </article>
         <Rating rating={data.rating} />
 
-        <ProductReviewList productSlug={data.slug} />
+        <ProductReviewContainer productSlug={data.slug} />
       </div>
     </>
   )

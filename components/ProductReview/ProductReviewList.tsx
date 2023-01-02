@@ -1,4 +1,4 @@
-import { useGetReviewsForProductSlugQuery } from '../generated/graphql'
+import { useGetReviewsForProductSlugQuery } from '../../generated/graphql'
 import { ProductReviewItem } from './ProductReviewItem'
 
 
