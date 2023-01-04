@@ -8,7 +8,7 @@ interface ProductReviewContainerProps {
 export const ProductReviewContainer = ({ productSlug } : ProductReviewContainerProps) => {
     return (
         <div>
-            <ProductReviewForm />
+            <ProductReviewForm productSlug={productSlug} />
             <ProductReviewList productSlug={productSlug}/>
         </div>
     )

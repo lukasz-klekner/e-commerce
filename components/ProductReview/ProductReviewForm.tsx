@@ -2,27 +2,57 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { InferType } from 'yup'
+import { GetReviewsForProductSlugDocument, useCreateProductReviewMutation } from '../../generated/graphql'
 
 
 const reviewFormSchema = yup.object({
   content: yup.string().required(),
   headline: yup.string().required(),
   name: yup.string().required(),
+  email: yup.string().email().required(),
   rating: yup.number().min(1).max(5).required(),
 })
 
 type FormData = InferType<typeof reviewFormSchema>
 
-export const ProductReviewForm = () => {
+interface ProductReviewFormProps {
+  productSlug: string
+}
+
+export const ProductReviewForm = ({ productSlug }: ProductReviewFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(reviewFormSchema),
-  }) 
+  })
 
-  const onSubmit = handleSubmit(data => console.log(data))
+  const [createReview, { data }] = useCreateProductReviewMutation({
+    refetchQueries: [
+      {
+        query: GetReviewsForProductSlugDocument,
+        variables: {
+          slug: productSlug
+        }
+      }
+    ]
+  })
+
+  const onSubmit = handleSubmit(data => {
+    createReview({
+      variables:{
+        review: {
+          ...data,
+          product: {
+            connect: {
+              slug: productSlug
+            }
+          }
+        }
+      }
+    })
+  })
 
   return (
     <section>
@@ -76,6 +106,22 @@ export const ProductReviewForm = () => {
 
                     <span role='alert' className='text-red-500 text-xs'>
                         {errors.name?.message}
+                    </span>
+                </div>
+
+                <div className='mb-4 flex items-center gap-2'>
+                    <label className='mb-1 block text-sm text-gray-600' htmlFor='email'>
+                        Email
+                    </label>
+
+                    <input
+                        className='w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm placeholder-gray-400'
+                        id='content'
+                        {...register(`email`)}
+                    />
+
+                    <span role='alert' className='text-red-500 text-xs'>
+                        {errors.email?.message}
                     </span>
                 </div>
 
