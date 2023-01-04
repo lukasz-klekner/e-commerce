@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { InferType } from 'yup'
-import { GetReviewsForProductSlugDocument, useCreateProductReviewMutation } from '../../generated/graphql'
+import { GetReviewsForProductSlugDocument, GetReviewsForProductSlugQuery, useCreateProductReviewMutation } from '../../generated/graphql'
 
 
 const reviewFormSchema = yup.object({
@@ -29,14 +29,46 @@ export const ProductReviewForm = ({ productSlug }: ProductReviewFormProps) => {
   })
 
   const [createReview, { data }] = useCreateProductReviewMutation({
-    refetchQueries: [
-      {
+    // refetchQueries: [
+    //   {
+    //     query: GetReviewsForProductSlugDocument,
+    //     variables: {
+    //       slug: productSlug
+    //     }
+    //   }
+    // ]
+    update(cache, result){
+      const originalCache = cache.readQuery<GetReviewsForProductSlugQuery>({
         query: GetReviewsForProductSlugDocument,
         variables: {
           slug: productSlug
         }
+      })
+
+      if(!originalCache?.product?.reviews){
+        return
       }
-    ]
+      
+      const newCache = {
+        ...originalCache,
+        product: {
+          ...originalCache.product,
+          reviews: [
+            ...originalCache.product.reviews,
+            result.data?.review
+          ]
+        }
+
+      }
+      
+      cache.writeQuery({
+        query: GetReviewsForProductSlugDocument,
+        variables: {
+          slug: productSlug
+        },
+        data: newCache
+      })
+    }
   })
 
   const onSubmit = handleSubmit(data => {
@@ -49,6 +81,14 @@ export const ProductReviewForm = ({ productSlug }: ProductReviewFormProps) => {
               slug: productSlug
             }
           }
+        }
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        review: {
+          __typename: 'Review',
+          id: (-Math.random()).toString(32),
+          ...data,
         }
       }
     })
