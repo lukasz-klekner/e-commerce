@@ -1,7 +1,42 @@
+import { loadStripe } from '@stripe/stripe-js'
+import Stripe from 'stripe'
 import { useCartState } from './CartContext'
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export const CartContent = () => {
   const { items, removeItemFromCart } = useCartState()
+
+  const pay = async() => {
+    const stripe = await stripePromise
+
+    if(!stripe){
+      throw new Error(`Something went wrong`)
+    }
+
+    const response = await fetch('/api/checkout',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(items.map(cartItem => {
+        return {
+          price_data: {
+            currency: 'PLN',
+            unit_amount: cartItem.price * 100,
+            product_data: {
+                name: cartItem.title,
+            }           
+        },
+        quantity: cartItem.count
+        }
+      }))
+    })
+
+    const { session }: {session: Stripe.Response<Stripe.Checkout.Session>} = await response.json()
+
+    await stripe.redirectToCheckout({ sessionId: session.id})
+  }
 
   return (
     <div className='col-span-2'>
@@ -36,6 +71,13 @@ export const CartContent = () => {
           )
         })}
       </ul>
+      <button
+        className='block w-full rounded-lg bg-black p-2.5 text-sm text-white mt-10'
+        onClick={pay}
+        type='button'
+      >
+       Zloz zamowienie     
+      </button>
     </div>
   )
 }
