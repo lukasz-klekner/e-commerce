@@ -6,7 +6,7 @@ import { useCartState } from './Cart/CartContext'
 
 type ProductListItem = Pick<
   ProductDetails,
-  'id' | 'slug' | 'title' | 'thumbnailUrl' | 'thumbnailAlt'
+  'id' | 'slug' | 'title' | 'thumbnailUrl' | 'thumbnailAlt' | 'price'
 >
 
 interface ProductListItemProps {
@@ -39,7 +39,8 @@ export const ProductListItem = ({ data }: ProductListItemProps) => {
         onClick={() =>
           addItemToCart({
             id: data.id,
-            price: 10,
+            slug: data.slug,
+            price: data.price / 100,
             title: data.title,
             count: 1,
           })

@@ -13,6 +13,7 @@ export interface ProductDetails {
   thumbnailUrl: string
   thumbnailAlt: string
   rating: number
+  price: number
   longDescription: MarkdownResult
 }
 
