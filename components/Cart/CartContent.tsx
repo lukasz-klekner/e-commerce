@@ -21,14 +21,8 @@ export const CartContent = () => {
       },
       body: JSON.stringify(items.map(cartItem => {
         return {
-          price_data: {
-            currency: 'PLN',
-            unit_amount: cartItem.price * 100,
-            product_data: {
-                name: cartItem.title,
-            }           
-        },
-        quantity: cartItem.count
+          slug: cartItem.slug,
+          count: cartItem.count
         }
       }))
     })

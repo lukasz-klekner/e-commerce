@@ -10,6 +10,7 @@ import { getCartItemsFromStorage, setCartItemsInStorage } from './CartStorage'
 
 export interface CartItem {
   id: string
+  slug: string
   title: string
   price: number
   count: number
