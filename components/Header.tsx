@@ -1,3 +1,4 @@
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 import { Logo } from '../icons/Logo'
@@ -14,6 +15,8 @@ const navItems = [
 ]
 
 export const Header = () => {
+  const session = useSession()
+
   return (
     <header className='bg-white dark:bg-gray-900'>
       <div className='mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8'>
@@ -49,11 +52,16 @@ export const Header = () => {
 
             <div className='flex items-center gap-4'>
               <div className='sm:flex sm:gap-4'>
-                <Link href='/'>
+                {
+                  session.status === 'authenticated' 
+                    ? <button className='rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500' onClick={() => signOut()}>Sign out</button> 
+                    : <button className='rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500' onClick={() => signIn()}>Sign in</button>
+                }
+                {/* <Link href='/'>
                   <a className='rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500'>
                     Login
                   </a>
-                </Link>
+                </Link> */}
 
                 <div className='hidden sm:flex'>
                   <Link href='/'>
