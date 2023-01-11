@@ -19,7 +19,15 @@ const SingupPage = () => {
         resolver: yupResolver(signupFormSchema),
       })
     
-      const onSubmit = handleSubmit(data => console.log(data))
+      const onSubmit = handleSubmit(async (data) => {
+        await fetch('/api/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },     
+            body: JSON.stringify(data)
+        })
+      })
 
     return (
         <section>

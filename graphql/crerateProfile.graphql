@@ -1,0 +1,5 @@
+mutation CreateProfile($email: String!, $password: String!) {
+  user: createProfile(data: {email: $email, password: $password}) {
+    id
+  }
+}
