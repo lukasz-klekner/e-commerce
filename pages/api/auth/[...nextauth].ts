@@ -1,8 +1,12 @@
 import NextAuth from "next-auth"
+import * as bcrypt from "bcrypt"
 import CredentialsProvider from "next-auth/providers/credentials";
+import { GetProfileByEmailDocument, GetProfileByEmailQuery, GetProfileByEmailQueryVariables } from "../../../generated/graphql";
+import { authorizedApolloClient } from "../../../graphql/apolloClient";
 
 
 export const authOptions = {
+  secret: process.env.NEXT_AUTH_SECRET,
   providers: [
     CredentialsProvider({
         name: "Login with Credentials",
@@ -11,19 +15,24 @@ export const authOptions = {
           password: { label: "Password", type: "password" }
         },
         async authorize(credentials, req) {
-          const user = { id: "1", password: "123", email: "luki@example.com" }
-          // zapytanie do bazy danych, api albo graphcms
+          if(!credentials) return null;
 
+          const user = await authorizedApolloClient.query<GetProfileByEmailQuery, GetProfileByEmailQueryVariables>({
+            query: GetProfileByEmailDocument,
+            variables: {
+                email: credentials.username
+            }
+          })
 
-    
-          if (user) {
-            // Any object returned will be saved in `user` property of the JWT
-            return user
-          } else {
-            // If you return null then an error will be displayed advising the user to check their details.
-            return null
-    
-            // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+          if(!user.data.profile?.password) return null;
+
+          const arePasswordsEqual = await bcrypt.compare(credentials.password, user.data.profile.password)
+
+          if(!arePasswordsEqual) return null;
+
+          return {
+            id: user.data.profile.id,
+            email: user.data.profile.email
           }
         }
       })

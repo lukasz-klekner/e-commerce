@@ -11464,6 +11464,13 @@ export type GetProductsSlugsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetProductsSlugsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', slug: string }> };
 
+export type GetProfileByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetProfileByEmailQuery = { __typename?: 'Query', profile?: { __typename?: 'Profile', id: string, email: string, password: string } | null };
+
 export type ReviewContentFragment = { __typename?: 'Review', content: string, headline: string, id: string, name: string, rating?: number | null };
 
 export type GetReviewsForProductSlugQueryVariables = Exact<{
@@ -11706,6 +11713,43 @@ export function useGetProductsSlugsLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetProductsSlugsQueryHookResult = ReturnType<typeof useGetProductsSlugsQuery>;
 export type GetProductsSlugsLazyQueryHookResult = ReturnType<typeof useGetProductsSlugsLazyQuery>;
 export type GetProductsSlugsQueryResult = Apollo.QueryResult<GetProductsSlugsQuery, GetProductsSlugsQueryVariables>;
+export const GetProfileByEmailDocument = gql`
+    query GetProfileByEmail($email: String!) {
+  profile(where: {email: $email}, stage: DRAFT) {
+    id
+    email
+    password
+  }
+}
+    `;
+
+/**
+ * __useGetProfileByEmailQuery__
+ *
+ * To run a query within a React component, call `useGetProfileByEmailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProfileByEmailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProfileByEmailQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useGetProfileByEmailQuery(baseOptions: Apollo.QueryHookOptions<GetProfileByEmailQuery, GetProfileByEmailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProfileByEmailQuery, GetProfileByEmailQueryVariables>(GetProfileByEmailDocument, options);
+      }
+export function useGetProfileByEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProfileByEmailQuery, GetProfileByEmailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProfileByEmailQuery, GetProfileByEmailQueryVariables>(GetProfileByEmailDocument, options);
+        }
+export type GetProfileByEmailQueryHookResult = ReturnType<typeof useGetProfileByEmailQuery>;
+export type GetProfileByEmailLazyQueryHookResult = ReturnType<typeof useGetProfileByEmailLazyQuery>;
+export type GetProfileByEmailQueryResult = Apollo.QueryResult<GetProfileByEmailQuery, GetProfileByEmailQueryVariables>;
 export const GetReviewsForProductSlugDocument = gql`
     query GetReviewsForProductSlug($slug: String!) {
   product(where: {slug: $slug}) {

@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { InferType } from 'yup'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const signupFormSchema = yup.object({
     email: yup.string().email().required(),
@@ -11,6 +13,8 @@ const signupFormSchema = yup.object({
 type SignupFormData = InferType<typeof signupFormSchema>
 
 const SingupPage = () => {
+    const session = useSession()
+    const router = useRouter()
     const {
         register,
         handleSubmit,
@@ -28,6 +32,11 @@ const SingupPage = () => {
             body: JSON.stringify(data)
         })
       })
+      
+    if(session.status === 'authenticated'){
+        router.push('/')
+        return null
+      }
 
     return (
         <section>
