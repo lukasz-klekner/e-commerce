@@ -19,13 +19,14 @@ const ProductsPage = ({
   return (
     <div className='flex flex-col'>
       <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-8'>
-        {data.map(({ id, image, title }) => (
+        {data.map(({ id, image, title, price }) => (
           <li key={id} className='shadow-xl border-2 p-4 rounded-xl'>
             <ProductListItem
               data={{
                 id: id.toString(),
                 slug: title,
                 title,
+                price,
                 thumbnailAlt: title,
                 thumbnailUrl: image,
               }}
