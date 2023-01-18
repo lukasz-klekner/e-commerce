@@ -39,6 +39,7 @@ const ProductPage = ({
           id: data.id.toString(),
           slug: title,
           description: data.description,
+          price: data.price,
           rating: data.rating.rate,
           thumbnailAlt: data.title,
           thumbnailUrl: data.image,
