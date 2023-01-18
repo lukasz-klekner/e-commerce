@@ -20,7 +20,7 @@ export const NewsletterForm = () => {
     resolver: yupResolver(newsletterFormSchema),
   })
 
-  const { mutate } = useAddEmailToNewsletterMutation()  
+  const { mutate, status } = useAddEmailToNewsletterMutation()  
 
   const onSubmit = handleSubmit(data => mutate(data))
 
@@ -41,6 +41,7 @@ export const NewsletterForm = () => {
                         type='email'
                         id='email'
                         {...register(`email`)}
+                        data-testid='email-newsletter-input'
                     />
 
                     <span role='alert' className='text-red-500 text-xs'>
@@ -52,9 +53,11 @@ export const NewsletterForm = () => {
                   <button
                     className='block w-full rounded-lg bg-black p-2.5 text-sm text-white'
                     type='submit'
+                    data-testid='email-newsletter-button'
                   >
                     Subscribe now!
                   </button>
+                  {status === 'success' && 'Zostales dodany do newslettera!'}
                 </div>
               </form>
             </div>
